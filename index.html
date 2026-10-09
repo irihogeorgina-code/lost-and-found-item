@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost and Found Item System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Lost and Found Item System</h1>
+        <p>Report and find lost items easily</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Report an Item</h2>
+
+            <form id="itemForm">
+                <label for="itemName">Item Name</label>
+                <input type="text" id="itemName" required>
+
+                <label for="itemType">Item Type</label>
+                <select id="itemType" required>
+                    <option value="">Select Type</option>
+                    <option value="Lost">Lost</option>
+                    <option value="Found">Found</option>
+                </select>
+
+                <label for="description">Description</label>
+                <textarea id="description" required></textarea>
+
+                <label for="location">Location</label>
+                <input type="text" id="location" required>
+
+                <label for="contact">Contact</label>
+                <input type="text" id="contact" required>
+
+                <button type="submit">Add Item</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Reported Items</h2>
+            <input type="text" id="search"
+                   placeholder="Search for an item...">
+            <div id="itemList"></div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
