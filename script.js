@@ -50,10 +50,6 @@ itemForm.addEventListener("submit", async function(event) {
 
     };
 
-    items.push(item);
-    saveItems();
-    displayItems(items);
-    itemForm.reset();
 });
 
 // Search reports
