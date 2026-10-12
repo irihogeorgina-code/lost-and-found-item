@@ -54,5 +54,117 @@
     </main>
 
     <script src="script.js"></script>
+
+<section id="account-section">
+  <h2>Lost and Found Item Account</h2>
+
+  <h3>Create an Account</h3>
+  <form id="signup-form">
+    <input id="signup-email" type="email"
+      placeholder="Your email address" required>
+    <input id="signup-password" type="password"
+      placeholder="Create a password (at least 6 characters)"
+      minlength="6" required>
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <h3>Log In</h3>
+  <form id="login-form">
+    <input id="login-email" type="email"
+      placeholder="Your email address" required>
+    <input id="login-password" type="password"
+      placeholder="Your password" required>
+    <button type="submit">Log In</button>
+  </form>
+
+  <button id="logout-button" type="button" hidden>
+    Log Out
+  </button>
+
+  <p id="account-message" role="status"></p>
+</section>
+
+<script type="module">
+  import { initializeApp } from
+    "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
+  } from
+    "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+
+  // Replace these example values with your Firebase web app configuration.
+  const firebaseConfig = {
+    apiKey: "PASTE_YOUR_API_KEY",
+    authDomain: "PASTE_YOUR_AUTH_DOMAIN",
+    projectId: "PASTE_YOUR_PROJECT_ID",
+    appId: "PASTE_YOUR_APP_ID"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const signupForm = document.getElementById("signup-form");
+  const loginForm = document.getElementById("login-form");
+  const logoutButton = document.getElementById("logout-button");
+  const message = document.getElementById("account-message");
+
+  signupForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    message.textContent = "Creating your account...";
+
+    try {
+      await createUserWithEmailAndPassword(
+        auth,
+        document.getElementById("signup-email").value,
+        document.getElementById("signup-password").value
+      );
+      message.textContent = "Account created successfully!";
+      signupForm.reset();
+    } catch (error) {
+      message.textContent = "Sign-up failed: " + error.message;
+    }
+  });
+
+  loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    message.textContent = "Logging in...";
+
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        document.getElementById("login-email").value,
+        document.getElementById("login-password").value
+      );
+      message.textContent = "You are logged in!";
+      loginForm.reset();
+    } catch (error) {
+      message.textContent = "Login failed: " + error.message;
+    }
+  });
+
+  logoutButton.addEventListener("click", async () => {
+    try {
+      await signOut(auth);
+      message.textContent = "You have logged out.";
+    } catch (error) {
+      message.textContent = "Logout failed. Please try again.";
+    }
+  });
+
+  onAuthStateChanged(auth, (user) => {
+    signupForm.hidden = !!user;
+    loginForm.hidden = !!user;
+    logoutButton.hidden = !user;
+
+    if (user) {
+      message.textContent = "Logged in as " + user.email;
+    }
+  });
+</script>
 </body>
 </html>
