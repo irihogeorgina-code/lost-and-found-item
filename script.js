@@ -8,17 +8,46 @@ let items = JSON.parse(localStorage.getItem("lostFoundItems")) || [];
 
 displayItems(items);
 
-// Add a new report
-itemForm.addEventListener("submit", function(event) {
+// 
+itemForm.addEventListener("submit", async function(event) {
     event.preventDefault();
 
-    const item = {
-        id: Date.now(),
-        name: document.getElementById("itemName").value.trim(),
-        type: document.getElementById("itemType").value,
-        description: document.getElementById("description").value.trim(),
-        location: document.getElementById("location").value.trim(),
-        contact: document.getElementById("contact").value.trim()
+    try {
+        const response = await fetch(itemForm.action, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json"
+            },
+            body: new FormData(itemForm)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.ok) {
+            throw new Error("The report could not be submitted.");
+        }
+
+        const item = {
+            id: Date.now(),
+            name: document.getElementById("itemName").value.trim(),
+            type: document.getElementById("itemType").value,
+            description: document.getElementById("description").value.trim(),
+            location: document.getElementById("location").value.trim(),
+            contact: document.getElementById("contact").value.trim()
+        };
+
+        items.push(item);
+        saveItems();
+        displayItems(items);
+        itemForm.reset();
+
+        alert("Report submitted successfully!");
+
+    } catch (error) {
+        alert("Could not send the report. Please try again.");
+        console.error(error);
+    }
+
     };
 
     items.push(item);
