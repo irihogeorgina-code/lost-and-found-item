@@ -15,7 +15,8 @@
 
     <main>
         <section>
-            <h2>Report an Item</h2>
+            <div id="main-content" hidden>
+<h2>Report an Item</h2>
 
          <form id="itemForm" action="https://formsubmit.app/f/uebm5ck4z5" method="POST">
                 <label for="itemName">Item Name</label>
@@ -42,7 +43,7 @@
                 <input type="email" id="email" name="email" required>
 
                 <button type="submit">Add Item</button>
-            </form>
+            </div>
         </section>
 
         <section>
@@ -161,10 +162,18 @@
     loginForm.hidden = !!user;
     logoutButton.hidden = !user;
 
+    const mainContent = document.getElementById("main-content");
+    if (mainContent) {
+      mainContent.hidden = !user;
+    }
+
     if (user) {
       message.textContent = "Logged in as " + user.email;
+    } else {
+      message.textContent = "Please create an account or log in.";
     }
   });
+
 </script>
     
 </body>
