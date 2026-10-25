@@ -1,4 +1,4 @@
-```javascript
+</> javascript
 const itemForm = document.getElementById("itemForm");
 const itemList = document.getElementById("itemList");
 const searchInput = document.getElementById("search");
