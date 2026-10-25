@@ -43,13 +43,10 @@ itemForm.addEventListener("submit", async function(event) {
 
         alert("Report submitted successfully!");
 
-    } catch (error) {
+        } catch (error) {
         alert("Could not send the report. Please try again.");
         console.error(error);
     }
-
-    };
-
 });
 
 // Search reports
