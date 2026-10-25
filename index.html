@@ -99,12 +99,15 @@
     "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
   // Replace these example values with your Firebase web app configuration.
-  const firebaseConfig = {
-    apiKey: "PASTE_YOUR_API_KEY",
-   authDomain — ends in firebaseapp.com
-   projectId — lost-and-found-item-20d5c
-   appId — begins with 1:223893774598:web:
-  };
+ const firebaseConfig = {
+  apiKey: "YOUR_ACTUAL_API_KEY",
+  authDomain: "lost-and-found-item-20d5c.firebaseapp.com",
+  projectId: "lost-and-found-item-20d5c",
+  storageBucket: "lost-and-found-item-20d5c.firebasestorage.app",
+  messagingSenderId: "223893774598",
+  appId: "YOUR_ACTUAL_APP_ID",
+  measurementId: "YOUR_ACTUAL_MEASUREMENT_ID"
+};
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
